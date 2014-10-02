@@ -91,3 +91,4 @@ Finally, download a [pre-trained model](http://zil.ipipan.waw.pl/Concraft?action
 ```
 concraft-pl tag model.gz < input.txt > output.plain
 ```
+For more information, see the [Github repo.](https://github.com/kawu/concraft-pl#concraft-pl)
