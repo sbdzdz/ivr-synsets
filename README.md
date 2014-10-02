@@ -27,9 +27,57 @@ if is_known("spam"):
 ```Python
 are_synonyms("spam", "eggs")
 ```
-- To list all hyponyms, hypernyms, attributes etc. of a certain word, use `get_closure(word, relation, level)`:
+- To list hyponyms, hypernyms etc. of a word, use `get_closure(word, relation, level)`:
 ```Python
 rel = lambda s:s.hyponyms()
 get_closure("spam", rel, 3)
 ```
-Note: for a list of Synset methods, see NLTK [source](http://www.nltk.org/_modules/nltk/corpus/reader/wordnet.html)and [documentation.](http://www.nltk.org/api/nltk.corpus.reader.html#module-nltk.corpus.reader.wordnet)
+Note: The function uses a breadth-first approach, maximum depth is set with the third argument. For a list of Synset methods, see NLTK [source](http://www.nltk.org/_modules/nltk/corpus/reader/wordnet.html)and [documentation.](http://www.nltk.org/api/nltk.corpus.reader.html#module-nltk.corpus.reader.wordnet)
+Concraft
+===========
+Concraft-pl is a morphosyntactic tagger for Polish based on constrained conditional random fields. It combines the following components into a pipeline:
+
+- Maca, a morphosyntactic segmentation and analysis tool
+- Concraft, a morphosyntactic disambiguation library 
+
+For more information, see [the project website](http://zil.ipipan.waw.pl/Concraft).
+###Installing Maca
+First, install necessary utils and libraries:
+```
+sudo apt-get install build-essential cmake bison flex python-dev swig git subversion
+sudo apt-get install libicu-dev libboost-dev libloki-dev libxml++-dev libedit-dev libreadline-dev
+```
+Next, install Morfeusz SGJP. The package is available [here](https://launchpad.net/~bartosz-zaborowski/+archive/ubuntu/nlp/+files/morfeusz-sgjp_0.81-1_amd64.deb). Alternatively:
+```
+sudo add-apt-repository ppa:bartosz-zaborowski/nlp
+sudo apt-get update
+sudo apt-get install morfeusz-sgjp
+```
+Install Stuttgart Finite State Tools:
+```
+sudo apt-get install sfst
+```
+Next, use git to clone Corpus2, Toki, and Maca repositories (this make take a few tries):
+```
+git clone http://nlp.pwr.wroc.pl/corpus2.git
+git clone http://nlp.pwr.wroc.pl/toki.git
+git clone http://nlp.pwr.wroc.pl/maca.git
+```
+Install Corpus2:
+```
+mkdir corpus2/bin
+cd corpus2/bin
+cmake ..
+make
+sudo make install
+```
+Use the same procedure to install Maca and Toki.
+Run:
+```
+sudo ldconfig
+```
+###Installing Concraft
+First, obtain Haskell Platform:
+```
+sudo apt-get install haskell-platform
+```
