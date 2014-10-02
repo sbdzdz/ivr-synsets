@@ -72,7 +72,7 @@ cmake ..
 make
 sudo make install
 ```
-Use the same procedure to install Maca and Toki.
+Use the above procedure to install Maca and Toki.
 Finally run:
 ```
 sudo ldconfig
