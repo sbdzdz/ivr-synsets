@@ -2,7 +2,7 @@ Synsets
 ===========
 
 Requires Python 3.4, NLTK 3.0 and plWordNet 2.1.
-
+###Installation
 To install NLTK (assuming Python 3.4 is installed):
 ```
 sudo apt-get install python3-pip
@@ -80,4 +80,13 @@ sudo ldconfig
 First, obtain Haskell Platform:
 ```
 sudo apt-get install haskell-platform
+```
+Next, use Cabal to install Concraft-pl:
+```
+cabal update 
+cabal install concraft-pl
+```
+Finally, download a pre-trained model, available [here](http://zil.ipipan.waw.pl/Concraft?action=AttachFile&do=get&target=nkjp-model-0.2.gz), rename it to `model.gz` (do not unzip it) and put into concraft directory (default is `~/.cabal/bin`). You can now test the installation by running:
+```
+concraft-pl tag model.gz < input.txt > output.plain
 ```
