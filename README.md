@@ -13,17 +13,23 @@ Polish Wordnet 2.1. is available [here](http://www.nlp.pwr.wroc.pl/plwordnet/dow
 
 ###Functions
 - To check whether a word exists in the Wordnet, use `is_known(word)`:
-```
+```Python
 if is_known("spam"):
   print("Spam is a word!")
 ```
 Note: this function actually returns a list of synsets for a given lemma. In Python, an empty list evaluates to `False`.
 - To list all synonyms (in form of lemmas) for a certain word, use `get_synonyms(word)`:
-```
+```Python
 if is_known("spam"):
   print(get_synonyms("spam"))
 ```
 - To check whether two words appear together in any synset, use `are_synonyms(word1, word2)`:
-```
+```Python
 are_synonyms("spam", "eggs")
 ```
+- To list all hyponyms, hypernyms, attributes etc. of a certain word, use `get_closure(word, relation, level)`:
+```Python
+rel = lambda s:s.hyponyms()
+get_closure("spam", rel, 3)
+```
+Note: for a list of Synset methods, see NLTK [source](http://www.nltk.org/_modules/nltk/corpus/reader/wordnet.html)and [documentation.](http://www.nltk.org/api/nltk.corpus.reader.html#module-nltk.corpus.reader.wordnet)
