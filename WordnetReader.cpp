@@ -2,12 +2,12 @@
 #include <string>
 #include <vector>
 
-WordnetReader::Synset::Synset(std:: string lemma) {
-  this.lemma = lemma;
+WordnetReader::Synset::Synset(std:: string word) {
+  lemma = word;
 }
 
 std::string WordnetReader::Synset::getLemma() {
-  return this.lemma;
+  return lemma;
 }
 
 bool WordnetReader::Synset::isSynonymOf(WordnetReader::Synset word) {
