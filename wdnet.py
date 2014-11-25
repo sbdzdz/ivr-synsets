@@ -2,7 +2,7 @@
 from nltk.corpus import wordnet as wn
 
 def is_known(word):
-  return wn.synsets(word)
+  return bool(wn.synsets(word))
 
 def get_synonyms(word):
   synsets = wn.synsets(word)
@@ -13,4 +13,4 @@ def are_synonyms(word1, word2):
 
 def get_closure(word, relation, level):
   synsets = wn.synsets(word)
-  return set([l for synset in synsets for s in synset.closure(relation, level) for l in s.lemma_names()])
+  return set([l for synset in synsets for s in synset.closure(relation, level) for l in s.lemma_names()])  
