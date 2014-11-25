@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
-#include "wordnetReader.h"
+#include "WordnetReader.h"
+#include "WordnetReader.cpp"
 
 int main() {
   std::string name;
   std::getline(std::cin, name);
-  wordnetReader::Synset* synset = new WordnetReader::Synset(name);
+  WordnetReader::Synset synset = WordnetReader::Synset(name);
   std::cout << synset.getLemma() << std::endl;
   return 0;
 }
