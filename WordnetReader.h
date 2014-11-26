@@ -5,12 +5,14 @@
 
 namespace WordnetReader 
 {
-  const std::string MODULE_NAME = "wordnet";
+  const char* MODULE_NAME = "wdnet";
 
   class Synset
   {
   private:
     std::string lemma;
+    PyObject * moduleName;
+    PyObject* wordnetModule;
   public:
     Synset(std::string word);
     std::string getLemma(); 
