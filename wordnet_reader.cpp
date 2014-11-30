@@ -6,13 +6,13 @@
 
 Wordnet::Reader::Reader() {
   moduleName = PyUnicode_FromString(Wordnet::MODULE_NAME);
-  wordnetModule = PyImport_Import(moduleName);
+  moduleObject = PyImport_Import(moduleName);
   Py_DECREF(moduleName);
 }
 
 bool Wordnet::isKnown(std::string word) {
-  PyObject* isKnown = PyObject_GetAttrString(wordnetModule, "is_known");
-  Py_DECREF(wordnetModule);
+  PyObject* isKnown = PyObject_GetAttrString(moduleObject, "is_known");
+  Py_DECREF(moduleObject);
   PyObject* args = PyBuildValue("s", word.c_str());
   PyObject* resultObj = PyObject_CallObject(isKnown, args);
   Py_DECREF(isKnown);
@@ -23,8 +23,8 @@ bool Wordnet::isKnown(std::string word) {
 }
 
 bool Wordnet::Reader::areSynonyms(std::string word, std::string otherWord) {
-  PyObject* areSynonyms = PyObject_GetAttrString(wordnetModule, "are_synonyms");
-  Py_DECREF(wordnetModule);
+  PyObject* areSynonyms = PyObject_GetAttrString(moduleObject, "are_synonyms");
+  Py_DECREF(moduleObject);
   PyObject* args = Py_BuildValue("ss", word.c_str(), otherWord.c_str());
   PyObject* resultObj = PyObject_CallObject(areSynonyms, args);
   Py_DECREF(areSynonyms);
