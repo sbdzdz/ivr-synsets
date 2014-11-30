@@ -23,8 +23,8 @@ int main() {
   std::getline(std::cin, anotherWord);
   if (!wordnet.isKnown(anotherWord))
     std::cout<<"The word is not in the dictionary!"<<std::endl;
-  if (wordnet.areSynonyms(anotherWord))
-    std::cout<<"These words are synonyms."<<std::endl;https://www.youtube.com/watch?v=rCRP-5om_3Y
+  if (wordnet.areSynonyms(word, anotherWord))
+    std::cout<<"These words are synonyms."<<std::endl;
   Py_Finalize();
   return 0;
 }
