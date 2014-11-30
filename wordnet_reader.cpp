@@ -22,10 +22,10 @@ bool Wordnet::isKnown(std::string word) {
   return result;
 }
 
-bool Wordnet::Reader::areSynonyms(std::string word1, std::string word2) {
+bool Wordnet::Reader::areSynonyms(std::string word, std::string otherWord) {
   PyObject* areSynonyms = PyObject_GetAttrString(wordnetModule, "are_synonyms");
   Py_DECREF(wordnetModule);
-  PyObject* args = Py_BuildValue("ss", word1.c_str(), word2.c_str());
+  PyObject* args = Py_BuildValue("ss", word.c_str(), otherWord.c_str());
   PyObject* resultObj = PyObject_CallObject(areSynonyms, args);
   Py_DECREF(areSynonyms);
   Py_DECREF(args);
