@@ -1,5 +1,6 @@
 #ifndef WORDNET_READER_H
 #define WORDNET_READER_H
+
 #include <string>
 #include <vector>
 
@@ -12,6 +13,7 @@ namespace Wordnet
   private:
     PyObject * moduleName;
     PyObject* moduleObject;
+    PyObject* isKnown;
   public:
     Reader();
     bool isKnown(std::string word);
