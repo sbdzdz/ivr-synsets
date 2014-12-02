@@ -14,7 +14,8 @@ namespace Wordnet
     Reader();
     bool isKnown(std::string& word);
     bool areSynonyms(std::string word, std::string otherWord);
-    std::vector<std::string> getSynonymsOf(std::string word);
+    void getSynonymsOf(std::string word);
+    // std::vector<std::string> getSynonymsOf(std::string word);
     std::vector<std::string> getHyponymsOf(std::string word, int level);
   };
 }
