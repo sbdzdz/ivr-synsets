@@ -25,6 +25,7 @@ int main()
       std::cout<<word<<" is not in the dictionary!"<<std::endl;
       continue;
     }
+    wordnet.getSynonymsOf(word);
     std::cout<<"Podaj drugie słowo: \n";
     std::getline(std::cin, otherWord);
     if (!wordnet.isKnown(otherWord)) {
