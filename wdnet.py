@@ -6,7 +6,7 @@ def is_known(word):
 
 def get_synonyms(word):
   synsets = wn.synsets(word)
-  return set([l for s in synsets for l in s.lemma_names()])
+  return list([l for s in synsets for l in s.lemma_names()])
 
 def are_synonyms(word1, word2):
   return word2 in get_synonyms(word1)
