@@ -43,8 +43,30 @@ bool Wordnet::Reader::areSynonyms(std::string word, std::string otherWord) {
   return (bool)result;
 }
 
-std::vector<std::string> Wordnet::Reader::getSynonymsOf(std::string word) {
-  //TODO
+//std::vector<std::string> Wordnet::Reader::getSynonymsOf(std::string word) {
+void Wordnet::Reader::getSynonymsOf(std::string word) {
+  PyObject* moduleName = PyUnicode_FromString(Wordnet::MODULE_NAME);
+  PyObject* moduleObject = PyImport_Import(moduleName);
+  Py_DECREF(moduleName);
+
+  PyObject* args = Py_BuildValue("(s)", word.c_str());
+  PyObject*  getSynonymsOf = PyObject_GetAttrString(moduleObject, "get_synonyms");
+  Py_DECREF(moduleObject);
+
+  PyObject* resultObj = PyObject_CallObject(getSynonymsOf, args);
+  Py_DECREF(getSynonymsOf);
+  Py_DECREF(args);
+
+  Py_ssize_t i, n;
+  PyObject* synonym;
+
+  n = PyList_Size(resultObj);
+  for (i = 0; i < n; i++) {
+      synonym = PyList_GetItem(resultObj, i);
+      PyObject* pyStr = PyUnicode_AsEncodedString(synonym, "utf-8", "Error ~");
+      Py_DECREF(synonym);
+      std::cout<<PyBytes_AS_STRING(pyStr)<<std::endl;
+  }
 }
 
 std::vector<std::string> Wordnet::Reader::getHyponymsOf(std::string word, int level) {
