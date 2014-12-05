@@ -12,8 +12,11 @@ def get_synonyms(word):
 def are_synonyms(word, otherWord):
   return word in get_synonyms(otherWord)
 
-def get_hyponyms(word, level):
+def get_closure(word, relation, level):
   synsets = wn.synsets(word)
+  closure = set([lemma for synset in synsets for s in synset.closure(relation, level) for lemma in s.lemma_names()])
+  return list(closure)
+
+def get_hyponyms(word, level):
   relation = lambda s:s.hyponyms()
-  hyponyms = set([lemma for synset in synsets for s in synset.closure(relation, level) for lemma in s.lemma_names()]) 
-  return list(hyponyms)
+  return get_closure(word, relation, level)
