@@ -6,14 +6,14 @@ def is_known(word):
 
 def get_synonyms(word):
   synsets = wn.synsets(word)
-  synonyms = [l for s in synsets for l in s.lemma_names()]
+  synonyms = set([lemma for synset in synsets for lemma in synset.lemma_names()])
   return list(synonyms)
 
-def are_synonyms(word1, word2):
-  return word2 in get_synonyms(word1)
+def are_synonyms(word, otherWord):
+  return word in get_synonyms(otherWord)
 
 def get_hyponyms(word, level):
   synsets = wn.synsets(word)
-  closure = [synset.closure(lambda s:s.hyponyms(), level) for synset in synsets]
-  hyponyms = set([lemma for lemma in synset.lemma_names() for synset in closure])
+  relation = lambda s:s.hyponyms()
+  hyponyms = set([lemma for synset in synsets for s in synset.closure(relation, level) for lemma in s.lemma_names()]) 
   return list(hyponyms)
