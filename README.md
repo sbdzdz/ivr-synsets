@@ -1,4 +1,4 @@
-Synsets
+Synsets in Python
 ===========
 
 Requires Python 3.4, NLTK 3.0 and plWordNet 2.1.
@@ -23,16 +23,39 @@ Note: this function actually returns a list of synsets for a given lemma. In Pyt
 if is_known("spam"):
   print(get_synonyms("spam"))
 ```
-- To check whether two words appear together in any synset, use `are_synonyms(word1, word2)`:
+- To check whether two words appear together in any synset, use `are_synonyms(word, otherWord)`:
 ```Python
 are_synonyms("spam", "eggs")
 ```
 - To list hyponyms, hypernyms etc. of a word, use `get_closure(word, relation, level)`:
 ```Python
+level = 3
 rel = lambda s:s.hyponyms()
-get_closure("spam", rel, 3)
+get_closure("spam", rel, level)
 ```
 Note: the function uses a breadth-first approach, maximum depth is set with the third argument. For a list of Synset methods, see NLTK [source](http://www.nltk.org/_modules/nltk/corpus/reader/wordnet.html) and [documentation.](http://www.nltk.org/api/nltk.corpus.reader.html#module-nltk.corpus.reader.wordnet)
+
+There is also a separate function for hyponyms, namely `get_hyponyms(word, level)`:
+```Python
+level = 3
+get_hyponyms("spam", level)
+```
+Synsets in C++
+===========
+
+Requires Python 3.4 (developer package), NLTK 3.0 and plWordNet 2.1.
+###Installation
+To install Python developer package:
+```
+sudo apt-get install python3-dev
+```
+Installing NLTK and Polish Wordnet was described in the previous section.
+To compile and run the program (for Python 3.4):
+```
+g++ -o main main.cpp -I /usr/include/python3.4 -l python3.4m
+./main
+```
+
 Concraft
 ===========
 Concraft-pl is a morphosyntactic tagger for Polish based on constrained conditional random fields. It combines the following components into a pipeline:
