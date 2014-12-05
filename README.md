@@ -55,6 +55,44 @@ To compile and run the program (for Python 3.4):
 g++ -o main main.cpp -I /usr/include/python3.4 -l python3.4m
 ./main
 ```
+###Functions
+- To check whether a word exists in the Wordnet, use `bool Wordnet::Reader::isKnown(std::string word)`
+- To list all synonyms (in form of lemmas) for a certain word, use `std::vector<std::string> Wordnet::Reader::getSynonymsOf(std::string word)`
+- To check whether two words appear together in any synset, use `bool Wordnet::Reader::areSynonyms(std::string word, std::string otherWord)
+- To list hyponyms of a word, use `std::vector<std::string> Wordnet::Reader::getHyponymsOf(std::string word, int level)
+Example:
+```C++
+#include <Python.h>
+#include <iostream>
+#include<string>
+
+#include "wordnet_reader.h"
+#include "wordnet_reader.cpp"
+
+int main() {
+  Py_Initialize();
+  //append current directory to path
+  PyObject* sysPath = PySys_GetObject((char*)"path");
+  PyObject* curDir = PyUnicode_FromString(".");
+  PyList_Append(sysPath, curDir);
+  Py_DECREF(curDir);
+
+  std::string word = "lekarz";
+  std::string otherWord = "chirurg"
+  int level = 2;
+  Wordnet::Reader wordnet = Wordnet::Reader();
+
+  std::vector<std::string> synonyms;
+  std::vector<std::string> hyponyms;
+  if (isKnown(word) && isKnown(otherWord)) {
+    synonyms = wordnet.getSynonymsOf(word);
+    hyponyms = wordnet.getHyponymsOf(word);
+    if (wordnet.areSynonyms(word, otherWord)
+      std::cout<<"Yes, "<<word<<" and "<<otherWord<<" are synonyms."
+  }
+  Py_Finalize()
+  return 0;
+}
 
 Concraft
 ===========
