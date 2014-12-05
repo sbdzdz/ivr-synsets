@@ -79,16 +79,16 @@ int main() {
   PyList_Append(sysPath, curDir);
   Py_DECREF(curDir);
 
+  int level = 2;
   std::string word = "lekarz";
   std::string otherWord = "chirurg"
-  int level = 2;
-  Wordnet::Reader wordnet = Wordnet::Reader();
-
   std::vector<std::string> synonyms;
   std::vector<std::string> hyponyms;
+  Wordnet::Reader wordnet = Wordnet::Reader();
+
   if (isKnown(word) && isKnown(otherWord)) {
     synonyms = wordnet.getSynonymsOf(word);
-    hyponyms = wordnet.getHyponymsOf(word);
+    hyponyms = wordnet.getHyponymsOf(word, level);
     if (wordnet.areSynonyms(word, otherWord))
       std::cout<<"Yes, "<<word<<" and "<<otherWord<<" are synonyms."
   }
