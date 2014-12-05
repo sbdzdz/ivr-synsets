@@ -1,7 +1,7 @@
 from wdnet import *
 
 word = "lekarz"
-level = 3
+level = 1
 
 synsets = wn.synsets(word)
 for synset in synsets:
@@ -16,6 +16,4 @@ for synset in synsets:
 print ("-" * 10)
 print("Synonyms: ", ", ".join(get_synonyms(word)))
 print ("-" * 10)
-print ("Hyponyms: ", ", ".join(get_closure(word, lambda s:s.hyponyms(), level)))
-print ("-" * 10)
-print ("Hypernyms: ", ", ".join(get_closure(word, lambda s:s.hypernyms(), level)))
+print ("Hyponyms: ", ", ".join(get_hyponyms(word, level)))
