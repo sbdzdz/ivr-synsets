@@ -58,8 +58,8 @@ g++ -o main main.cpp -I /usr/include/python3.4 -l python3.4m
 ###Functions
 - To check whether a word exists in the Wordnet, use `bool Wordnet::Reader::isKnown(std::string word)`
 - To list all synonyms (in form of lemmas) for a certain word, use `std::vector<std::string> Wordnet::Reader::getSynonymsOf(std::string word)`
-- To check whether two words appear together in any synset, use `bool Wordnet::Reader::areSynonyms(std::string word, std::string otherWord)
-- To list hyponyms of a word, use `std::vector<std::string> Wordnet::Reader::getHyponymsOf(std::string word, int level)
+- To check whether two words appear together in any synset, use `bool Wordnet::Reader::areSynonyms(std::string word, std::string otherWord)`
+- To list hyponyms of a word, use `std::vector<std::string> Wordnet::Reader::getHyponymsOf(std::string word, int level)`
 Example:
 ```C++
 #include <Python.h>
@@ -93,7 +93,7 @@ int main() {
   Py_Finalize()
   return 0;
 }
-
+```
 Concraft
 ===========
 Concraft-pl is a morphosyntactic tagger for Polish based on constrained conditional random fields. It combines the following components into a pipeline:
