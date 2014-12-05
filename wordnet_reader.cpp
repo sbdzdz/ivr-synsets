@@ -7,7 +7,7 @@
 Wordnet::Reader::Reader() {
 }
 
-bool Wordnet::Reader::isKnown(std::string& word) {
+bool Wordnet::Reader::isKnown(std::string word) {
   PyObject* moduleName = PyUnicode_FromString(Wordnet::MODULE_NAME);
   PyObject* moduleObject = PyImport_Import(moduleName);
   Py_DECREF(moduleName);
