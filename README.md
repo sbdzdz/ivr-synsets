@@ -55,11 +55,13 @@ To compile and run the program (for Python 3.4):
 g++ -o main main.cpp -I /usr/include/python3.4 -l python3.4m
 ./main
 ```
+Note: the Python file (wdnet.py) must be in the same directory.
 ###Functions
 - To check whether a word exists in the Wordnet, use `bool Wordnet::Reader::isKnown(std::string word)`
 - To get all synonyms (in form of lemmas) for a certain word, use `std::vector<std::string> Wordnet::Reader::getSynonymsOf(std::string word)`
 - To check whether two words appear together in any synset, use `bool Wordnet::Reader::areSynonyms(std::string word, std::string otherWord)`
 - To get hyponyms of a word up to a given level, use `std::vector<std::string> Wordnet::Reader::getHyponymsOf(std::string word, int level)`
+
 Example:
 ```C++
 #include <Python.h>
@@ -87,7 +89,7 @@ int main() {
   if (isKnown(word) && isKnown(otherWord)) {
     synonyms = wordnet.getSynonymsOf(word);
     hyponyms = wordnet.getHyponymsOf(word);
-    if (wordnet.areSynonyms(word, otherWord)
+    if (wordnet.areSynonyms(word, otherWord))
       std::cout<<"Yes, "<<word<<" and "<<otherWord<<" are synonyms."
   }
   Py_Finalize()
