@@ -1,39 +1,29 @@
+import os
 import re
-import operator
+import subprocess
+import time
 
-def parse(path):
-    for paragraph in readfile(path):
-        sentence = []
-        forms = {}
-        for line in paragraph.splitlines():
-            line = line.split()
-            if new_word(line):
-                sentence.append(disambiguate(forms))
-                forms = {}
-            if disambiguation(line):
-                forms[line[0]] = float(line[2])
-        else:
-            sentence.append(disambiguate(forms))
-        yield join(sentence)
+def tag(sentence):
+    with open('input', 'w') as input:
+        input.write(sentence)
+    call = "~/.cabal/bin/concraft-pl client < input"
+    serverRunning = False
+    while (not serverRunning):
+        try:
+            subprocess.check_call(call, shell=True)
+            serverRunning = True
+        except subprocess.CalledProcessError:
+            time.sleep(5)
+    os.remove('input')
 
-def join(sentence):
-    return ' '.join(filter(None, sentence))
+def parse(concraftOutput):
+    sentence = [line.split()[0] for line in concraftOutput if disambiguation(line)]
+    return ''.join(sentence)
 
-def readfile(path):
-    with open(path, 'r') as file:
-        content = re.split('(\n){2,}', file.read())
-    return content
-
-def disambiguate(forms):
-    return max(forms.keys(), key=(lambda key: forms[key])) if forms else None
-
-def new_word(line):
-    return len(line) == 2
-    
 def disambiguation(line):
-    return len(line) == 3
+    return line.split()[-1] == 'disamb'
 
-for sentence in parse('out'):
-    print (sentence)
-
-
+def start_concraft_server():
+    call = "~/.cabal/bin/concraft-pl server ~/.cabal/bin/model.gz"
+    server = subprocess.Popen(call, shell = True)
+    return server
