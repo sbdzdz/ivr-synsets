@@ -1,11 +1,11 @@
-import concraft
+nimport concraft
 import wdnet
 
 def analyse(sentence, concraftClient):
     for word in concraftClient.lemmatize(sentence).split():
         print(word)
-        synonyms = wdnet.get_hyponyms(word, 2)
-        for hyponym in set(hypoonyms):
+        hyponyms = wdnet.get_hyponyms(word, 2)
+        for hyponym in set(hyponyms):
             print ("\t{0}".format(hyponym))
 
 server = concraft.Server()
