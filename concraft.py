@@ -3,8 +3,17 @@ import re
 import socket
 import subprocess
 import time
+import wdnet
 
 PATH_TO_CONCRAFT = '~/.cabal/bin'
+
+def analyse(sentence, client):
+    out = []
+    for word in client.lemmatize(sentence):
+        hyponyms = list(set(wdnet.get_hyponyms(word, 1)))
+        synonyms = list(set(wdnet.get_synonyms(word)))
+        out.append((word, hyponyms))
+    return out
 
 class Server:
     def __init__(self):
@@ -45,7 +54,7 @@ class Client:
                 concraftOutput = subprocess.check_output(self.call, shell=True)
                 serverRunning = True
             except subprocess.CalledProcessError:
-                time.sleep(12)
+                time.sleep(10)
         return self.parse(concraftOutput.decode('utf-8'))
 
     def generate_call(self):
@@ -58,7 +67,7 @@ class Client:
 
     def parse(self, concraftOutput):
         sentence = [line.split()[0] for line in concraftOutput.split("\n") if self.disambiguation(line)]
-        return ' '.join(sentence)
+        return sentence
 
     def disambiguation(self, line):
         return line and line.split()[-1] == 'disamb'
