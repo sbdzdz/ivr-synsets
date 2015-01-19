@@ -1,4 +1,4 @@
-nimport concraft
+import concraft
 import wdnet
 
 def analyse(sentence, concraftClient):
